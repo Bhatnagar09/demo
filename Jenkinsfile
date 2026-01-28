@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
      tools{
@@ -18,7 +19,7 @@ pipeline {
             }
               post {
                   always {
-                         junit '*/target/surefire-reports/.xml'
+                         junit '**/target/surefire-reports/*.xml'
                          echo 'Test Run succeeded!'          
 					}
 				}
@@ -36,29 +37,25 @@ pipeline {
             }
         }
          stage('Push Docker Image to DockerHub') {
-   	 	 	steps {
-        		withCredentials([usernamePassword(
-		            credentialsId: 'dockerhubpwd',
-		            usernameVariable: 'DOCKER_USER',
-		            passwordVariable: 'DOCKER_PASS'
-			        )]) {
-	            bat '''
-	                docker logout
-	                docker login -u %DOCKER_USER% -p %DOCKER_PASS%
-	                docker tag mvnproj:1.0 pbhatnagar26/mymvnproj:latest
-	                docker push pbhatnagar26/mymvnproj:latest
-	            '''
-        		}
-    		}
-		}
-
-        stage('Deploy the project using Container') {
+            steps {
+               echo "Push Docker Image to DockerHub for mvn project"
+                 withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'DOCKER_PASS')]) {
+                         bat '''
+   	        echo %DOCKER_PASS% | docker login -u pbhatnagar26 --password-stdin
+                         docker tag mvnproj:1.0 pbhatnagar26/mymvnproj:latest
+                         docker push pbhatnagar26/mymvnproj:latest
+                         '''
+                  }
+            }
+        }
+       
+         stage('Deploy the project using Container') {
             steps {
                 echo "Running Java Application"
                 bat '''
-				docker rm -f myjavaappcont || exit 0
-				docker run --name myjavaappcont pbhatnagar26/mymvnproj:latest
-				'''
+	               docker rm -f myjavaappcont || exit 0
+	               docker run --name myjavaappcont pbhatnagar26/mymvnproj:latest
+	           '''
             }
         }
     }
