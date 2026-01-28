@@ -42,7 +42,7 @@ pipeline {
                  withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'DOCKER_PASS')]) {
                          bat '''
    	        echo %DOCKER_PASS% | docker login -u pbhatnagar26 --password-stdin
-                         docker tag mvnproj:1.0 pbhatngar26/mymvnproj:latest
+                         docker tag mvnproj:1.0 pbhatnagar26/mymvnproj:latest
                          docker push pbhatnagar26/mymvnproj:latest
                          '''
                   }
@@ -54,7 +54,7 @@ pipeline {
                 echo "Running Java Application"
                 bat '''
 	               docker rm -f myjavaappcont || exit 0
-	               docker run --name myjavaappcont deepikkaa20/mymvnproj:latest
+	               docker run --name myjavaappcont pbhatnagar26/mymvnproj:latest
 	           '''
             }
         }
