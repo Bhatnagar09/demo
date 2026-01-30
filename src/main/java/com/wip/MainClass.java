@@ -12,7 +12,7 @@ public class MainClass {
 		System.out.println("Java For Docker!!!! . THis code is pulled from WIP GitHub Repository");
 		System.out.println("This is the updated code after adding Jenkinsfile to the repository");
 
-		while(ture)
+		while(true)
 			{
 				try
 					{
