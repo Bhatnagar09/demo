@@ -11,6 +11,19 @@ public class MainClass {
 		System.out.println(mc.add(10, 20));
 		System.out.println("Java For Docker!!!! . THis code is pulled from WIP GitHub Repository");
 		System.out.println("This is the updated code after adding Jenkinsfile to the repository");
+
+		while(ture)
+			{
+				try
+					{
+						Thread.sleep(60000);
+						System.out.println("application still running");
+					}
+				catch(InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+			}
 	}
 
 }
