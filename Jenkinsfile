@@ -61,7 +61,7 @@ pipeline {
                     "C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" status
 
                     "C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" image load pbhatnagar26/mymvnproj:latest
-                    kubectl apply -f deployment.yaml
+                    kubectl apply -f Deployment.yaml
                     sleep 20
                     kubectl get pods
                     kubectl apply -f services.yaml
