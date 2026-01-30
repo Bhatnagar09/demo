@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvnproj-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mvnproj
+  template:
+    metadata:
+      labels:
+        app: mvnproj
+    spec:
+      containers:
+      - name: mvnproj
+        image: pbhatnagar26/mvnproj:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
