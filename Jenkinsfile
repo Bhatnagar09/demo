@@ -77,6 +77,7 @@ pipeline {
                     steps {
                         echo "Running minikube dashboard"
                         bat '''
+                             "C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" addons enable metrics-server
                             "C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" dashboard
                             echo "Dashboard is running"
                         '''
